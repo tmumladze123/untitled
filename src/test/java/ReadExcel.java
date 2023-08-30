@@ -13,13 +13,8 @@ public class ReadExcel {
         FileInputStream fileInputStream = new FileInputStream("src/main/resources/TestData.xls");
         Workbook workbook = new HSSFWorkbook(fileInputStream);
         Sheet sheet = workbook.getSheet("Sheet1");
-        Cell cell = sheet.getRow(0).getCell(0); // Replace with desired row and column
+        Cell cell = sheet.getRow(0).getCell(0);
         String value = cell.getStringCellValue();
         System.out.printf(value);
-       /* Cell cell1 = sheet.getRow(1).createCell(1); // Replace with desired row and column
-        cell1.setCellValue("New Value");
-        FileOutputStream fileOutputStream = new FileOutputStream("path/to/your/excel/file.xlsx");
-        workbook.write(fileOutputStream);
-        fileOutputStream.close();*/
     }
 }
