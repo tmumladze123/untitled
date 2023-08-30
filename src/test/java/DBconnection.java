@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class DBconnection {
 
     @Test
-    public void bl() throws SQLException {
+    public void connect() throws SQLException {
         String dbURL = "jdbc:sqlserver://DESKTOP-OGFK027;user=user;password=user1234;encrypt=true;trustServerCertificate=true";
         Connection conn = DriverManager.getConnection(dbURL);
         PreparedStatement statement = conn.prepareStatement("INSERT Persons VALUES (1, 'Tamari', 'Mumladze','Adress', 'Tbilisi') ");
