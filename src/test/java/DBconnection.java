@@ -7,11 +7,6 @@ import java.sql.SQLException;
 
 public class DBconnection {
 
-    public DBconnection() throws SQLException, ClassNotFoundException {
-        DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    }
-
     @Test
     public void bl() throws SQLException {
         String dbURL = "jdbc:sqlserver://DESKTOP-OGFK027;user=user;password=user1234;encrypt=true;trustServerCertificate=true";
