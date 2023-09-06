@@ -36,7 +36,6 @@ public class DBconnection {
             System.out.println(result.getString(1));
             System.out.println(result.getString("LastName"));
         }
-
         PreparedStatement statement = conn.prepareStatement("INSERT Persons VALUES (?, ?, 'Mumladze','Adress', 'Tbilisi') ");
         statement.setInt(1, 18);
         statement.setString(2, "Nia");
