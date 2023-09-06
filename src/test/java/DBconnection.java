@@ -1,17 +1,14 @@
 import org.testng.annotations.Test;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DBconnection {
     String dbURL = "jdbc:sqlserver://DESKTOP-OGFK027;user=user;password=user1234;encrypt=true;trustServerCertificate=true";
     Connection conn;
     Statement statement;
-
     public DBconnection() throws SQLException {
-        conn = DriverManager.getConnection(dbURL);
-        statement = conn.createStatement();
+       conn = DriverManager.getConnection(dbURL);
+       statement = conn.createStatement();
     }
     @Test
     public void connection() throws SQLException {
@@ -36,7 +33,6 @@ public class DBconnection {
             System.out.println(result.getString(1));
             System.out.println(result.getString("LastName"));
         }
-
         PreparedStatement statement = conn.prepareStatement("INSERT Persons VALUES (?, ?, 'Mumladze','Adress', 'Tbilisi') ");
         statement.setInt(1, 18);
         statement.setString(2, "Nia");
