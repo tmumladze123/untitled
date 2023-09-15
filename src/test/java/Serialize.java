@@ -1,6 +1,9 @@
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.response.Response;
+import models.CreateUserSuccess;
 import models.User;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -8,19 +11,24 @@ import static io.restassured.RestAssured.given;
 public class Serialize {
 
     @Test
-    public void usingJson() throws JSONException {
-        /*JSONObject jsonData = new JSONObject();
-        jsonData.put("userName", "tazo");
-        jsonData.put("password", "Tamuna123!!");*/
+    public void usingJson() throws JsonProcessingException {
         User user = new User();
-        given()
+        user.setUserName("Random123");
+        user.setPassword("Password123!!");
+        user.setAge("Aa`1scd");
+        ObjectMapper objectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        System.out.println(objectMapper.writeValueAsString(user));
+        Response response = given()
                 .baseUri("https://bookstore.toolsqa.com/Account/v1/User")
-                .header("accept","application/json")
-                .header("Content-Type","application/json")
+                .header("accept", "application/json")
+                .header("Content-Type", "application/json")
                 .body(user)
                 .when()
                 .post()
                 .then()
-                .log().all();
+                .extract().response();
+        CreateUserSuccess createUserSuccess = response.as(CreateUserSuccess.class);
+        System.out.println(createUserSuccess.getUserID());
+        System.out.println(createUserSuccess.getUsername());
     }
 }
