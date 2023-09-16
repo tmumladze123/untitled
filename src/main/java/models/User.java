@@ -17,7 +17,6 @@ public class User {
     public String setAge(String a) {
         return this.age=a;
     }
-
     public String getAge() {
         return age;
     }

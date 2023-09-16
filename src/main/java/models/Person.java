@@ -1,17 +1,13 @@
 package models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Builder;
+import lombok.Data;
 
-@JsonInclude(JsonInclude.Include.CUSTOM)
+@Data
+@Builder
 public class Person {
-    String password;
-    @JsonProperty("userName")
-    String username;
-
-    @JsonIgnore
-    String age ;
+    String userName = "username";
+    String password = "password";
+    String age;
 }
