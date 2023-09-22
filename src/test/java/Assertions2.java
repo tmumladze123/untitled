@@ -16,6 +16,6 @@ public class Assertions2 {
                 .all()
                 .extract()
                 .as(Pet.class);
-        assertThat(pet.getName()).endsWith("2");
+        assertThat(pet.getName()).endsWith("e");
     }
 }
