@@ -1,19 +1,24 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.RestAssured;
+import io.restassured.specification.RequestSpecification;
 import models.Pet;
 import org.assertj.core.api.Java6Assertions;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
-public class Assertions {
+public class Specifications {
+    RequestSpecification requestSpecification = RestAssured.given().baseUri("https://petstore.swagger.io/v2/pet")
+            .header("accept", "application/json");
 
     @Test //Single JSON Object , hamcrest
     public void assertSpecificValue() {
-        given().baseUri("https://petstore.swagger.io/v2/pet/112233")
-                .header("accept", "application/json")
-                .when()
-                .get()
+        requestSpecification.when()
+                .get("112233")
                 .then()
                 .log()
                 .all()
@@ -23,10 +28,9 @@ public class Assertions {
 
     @Test //Assert response after extraction and deserialization
     public void assertAfterExtracting() {
-        Pet pet = given().baseUri("https://petstore.swagger.io/v2/pet/112233")
-                .header("accept", "application/json")
+        Pet pet = requestSpecification
                 .when()
-                .get()
+                .get("112233")
                 .then()
                 .log()
                 .all()
@@ -35,13 +39,12 @@ public class Assertions {
         assertThat(pet.getId(), equalTo(112233L));
     }
 
-    @Test /*(dependsOnMethods = {"assertAfterExtracting"})*/ //Assert Array
+    @Test //Assert Array
     public void usageWithArray() {
-        given().baseUri("https://petstore.swagger.io/v2/pet/findByStatus")
-                .header("accept", "application/json")
+        requestSpecification
                 .queryParam("status", "happy123")
                 .when()
-                .get()
+                .get("findByStatus")
                 .then()
                 .log()
                 .all()
@@ -49,18 +52,20 @@ public class Assertions {
                 .statusCode(200)
                 .body("size()", is(0));
     }
-    @Test /*(dependsOnMethods = {"assertAfterExtracting"})*/ //Assert Array
-    public void usageWithArrayAssertj() {
-        Pet pet = given().baseUri("https://petstore.swagger.io/v2/pet/112233")
-                .header("accept", "application/json")
+
+    @Test  //Assert Array
+    public void usageWithArrayAssertj() throws JsonProcessingException {
+        Pet pet = requestSpecification
                 .when()
-                .get()
+                .get("112233")
                 .then()
                 .log()
                 .all()
                 .extract()
                 .as(Pet.class);
         Java6Assertions.assertThat(pet.getName()).endsWith("n");
+        System.out.println(pet);
+        ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println( objectMapper.writeValueAsString(pet));
     }
-
 }
