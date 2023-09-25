@@ -23,7 +23,7 @@ public class Assertions {
 
     @Test //Assert response after extraction and deserialization
     public void assertAfterExtracting() {
-        Pet pet = given().baseUri("https://petstore.swagger.io/v2/pet/112233")
+        Pet pet = given().baseUri("https://petstore.swagger.io/v2/pet/1245")
                 .header("accept", "application/json")
                 .when()
                 .get()
@@ -32,7 +32,7 @@ public class Assertions {
                 .all()
                 .extract()
                 .as(Pet.class);
-        assertThat(pet.getId(), equalTo(112233L));
+        assertThat(pet.getId(),equalTo(1245L));
     }
 
     @Test /*(dependsOnMethods = {"assertAfterExtracting"})*/ //Assert Array
